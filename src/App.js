@@ -4,6 +4,9 @@ const dogData = [
     image_link: "https://api-ninjas.com/images/dogs/golden_retriever.jpg",
     max_height_male: "24",
     max_weight_male: "75",
+    max_weight_female: "65",
+    max_height_female: "24",
+    max_life_expectancy: "12",
   },
 ];
 
@@ -17,7 +20,7 @@ export default function App() {
 }
 function Search() {
   return (
-    <div className="flex flex-col items-center bg-darkBrown">
+    <div className="flex flex-col items-center bg-darkBrown ">
       <h1 className="font-bold text-xl mt-4 text-beige">
         Fetch the Facts: Dog Breed Information at Your Fingertips
       </h1>
@@ -40,10 +43,20 @@ function FetchUi() {
 
 function Fetch({ dog }) {
   return (
-    <li>
-      <img src={dog.image_link} />
-      <h1>{dog.name}</h1>
-      <h2>{dog.max_height_male}</h2>
+    <li className="flex flex-row m-5  border-blue-300 border-4">
+      <img
+        src={dog.image_link}
+        alt={dog.name}
+        className="w-96 h-64 rounded m-2"
+      />
+      <div className="ml-4">
+        <h1>Name: {dog.name}</h1>
+        <h2>Height-Male: {dog.max_height_male}</h2>
+        <h2>Weight-Male: {dog.max_weight_male}</h2>
+        <h2>Weight-Female: {dog.max_weight_female}</h2>
+        <h2>Height-Female: {dog.max_height_female}</h2>
+        <h2>life-expectancy: {dog.max_life_expectancy}</h2>
+      </div>
     </li>
   );
 }
