@@ -7,6 +7,7 @@ module.exports = {
         darkBrown: "#4b2e2e",
         lightBrown: "#7b4f4f",
         beige: "#dcdcdc",
+        lightblue: "#d0e7f9",
       },
     },
   },
