@@ -26,18 +26,24 @@ function Search() {
       </h1>
       <input
         placeholder="Search for Dogs ..."
-        className="w-80 h-10  border-gray-300 rounded shadow  placeholder-white bg-lightBrown text-center m-3"
+        className="w-80 h-10  rounded shadow  placeholder-white bg-lightBrown text-center m-3 focus:outline-none focus:border-none focus:-translate-y-px focus:shadow-current transition-all text-beige"
       />
     </div>
   );
 }
 function FetchUi() {
   return (
-    <ul className="list-none bg-lightblue flex flex-col items-center">
-      {dogData.map((dog) => (
-        <Fetch dog={dog} key={dog.name} />
-      ))}
-    </ul>
+    <>
+      <button className="bg-blue-400 rounded-full w-6 absolute right-0 mt-2 mr-2">
+        -
+      </button>
+
+      <ul className="list-none bg-lightblue flex flex-col items-center">
+        {dogData.map((dog) => (
+          <Fetch dog={dog} key={dog.name} />
+        ))}
+      </ul>
+    </>
   );
 }
 
