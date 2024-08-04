@@ -2,7 +2,13 @@
 module.exports = {
   content: ["./src/App.js"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        darkBrown: "#4b2e2e",
+        lightBrown: "#7b4f4f",
+        beige: "#dcdcdc",
+      },
+    },
   },
   plugins: [],
 };
