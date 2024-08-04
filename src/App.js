@@ -33,7 +33,7 @@ function Search() {
 }
 function FetchUi() {
   return (
-    <ul className="list-none bg-lightblue">
+    <ul className="list-none bg-lightblue flex flex-col items-center">
       {dogData.map((dog) => (
         <Fetch dog={dog} key={dog.name} />
       ))}
@@ -43,16 +43,18 @@ function FetchUi() {
 
 function Fetch({ dog }) {
   return (
-    <li className="flex flex-row m-5  border-blue-300 border-4">
+    <li className="flex flex-row m-5  border-blue-300 border-4 h-72 w-2/3 ">
       <img
         src={dog.image_link}
         alt={dog.name}
         className="w-96 h-64 rounded m-2"
       />
-      <div className="ml-4">
+      <div className="ml-4 mt-5 font-mono">
         <h1>Name: {dog.name}</h1>
         <h2>Height-Male: {dog.max_height_male}</h2>
         <h2>Weight-Male: {dog.max_weight_male}</h2>
+      </div>
+      <div className="ml-4 font-mono mt-5">
         <h2>Weight-Female: {dog.max_weight_female}</h2>
         <h2>Height-Female: {dog.max_height_female}</h2>
         <h2>life-expectancy: {dog.max_life_expectancy}</h2>
