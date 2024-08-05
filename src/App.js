@@ -41,7 +41,9 @@ export default function App() {
   return (
     <>
       <Search />
+
       <FetchUi setshow={handelShow} show={show} dogInfo={dog} />
+      {error && <Displayerror error={error} />}
     </>
   );
 }
@@ -98,5 +100,15 @@ function Fetch({ dog }) {
         <h2>life expectancy: {dog.max_life_expectancy} yrs</h2>
       </div>
     </li>
+  );
+}
+
+function Displayerror({ error }) {
+  return (
+    <div className="flex justify-center tex h-1/3 items-center">
+      <h1 className="font-bold text-xl text-red-500 font-serif">
+        <span>⛔️</span> {error}
+      </h1>
+    </div>
   );
 }
