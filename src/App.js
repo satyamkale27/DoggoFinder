@@ -21,15 +21,18 @@ export default function App() {
   // const query = "golden retriever";
   useEffect(
     function () {
+      const controllers = new AbortController();
       async function fetchDogs() {
         try {
           Setloding(true);
           setError("");
           const res = await fetch(
             `https://api.api-ninjas.com/v1/dogs?name=${query}`,
+
             {
+              signal: controllers.signal,
               headers: {
-                "X-Api-Key": "",
+                "X-Api-Key": "Add your API key",
               },
             }
           );
@@ -41,12 +44,23 @@ export default function App() {
           setError("");
         } catch (err) {
           console.log(err.message);
-          setError(err.message);
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
         } finally {
           Setloding(false);
         }
       }
+      if (query.length < 3) {
+        setDog([]);
+        setError("");
+        return;
+      }
       fetchDogs();
+
+      return function () {
+        controllers.abort();
+      };
     },
     [query]
   );
