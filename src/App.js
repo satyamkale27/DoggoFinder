@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const dogData = [
   {
@@ -14,7 +14,27 @@ const dogData = [
 
 export default function App() {
   const [show, setShow] = useState(true);
-  const [dog, setDog] = useState(dogData);
+  const [dog, setDog] = useState([]);
+  const [error, setError] = useState("");
+  const query = "golden retriever";
+  useEffect(function () {
+    async function fetchDogs() {
+      try {
+        const res = await fetch(
+          `https://api.api-ninjas.com/v1/dogs?name=${query}`
+        );
+        if (!res.ok) throw new Error("something went wrong with fetching dogs");
+        const data = await res.json();
+        if (data.length === 0) throw new Error("dog not found");
+        setDog(data);
+      } catch (err) {
+        console.log(err.message);
+        setError(err.message);
+      }
+    }
+    fetchDogs();
+  }, []);
+
   function handelShow() {
     setShow((show) => !show);
   }
