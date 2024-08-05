@@ -17,41 +17,46 @@ export default function App() {
   const [dog, setDog] = useState([]);
   const [error, setError] = useState("");
   const [loading, Setloding] = useState(false);
-  const query = "golden retriever";
-  useEffect(function () {
-    async function fetchDogs() {
-      try {
-        Setloding(true);
-        setError("");
-        const res = await fetch(
-          `https://api.api-ninjas.com/v1/dogs?name=${query}`,
-          {
-            headers: {
-              "X-Api-Key": "",
-            },
-          }
-        );
-        if (!res.ok) throw new Error("something went wrong with fetching dogs");
-        const data = await res.json();
-        if (data.length === 0) throw new Error("dog not found");
-        setDog(data);
-        setError("");
-      } catch (err) {
-        console.log(err.message);
-        setError(err.message);
-      } finally {
-        Setloding(false);
+  const [query, setQuery] = useState("");
+  // const query = "golden retriever";
+  useEffect(
+    function () {
+      async function fetchDogs() {
+        try {
+          Setloding(true);
+          setError("");
+          const res = await fetch(
+            `https://api.api-ninjas.com/v1/dogs?name=${query}`,
+            {
+              headers: {
+                "X-Api-Key": "",
+              },
+            }
+          );
+          if (!res.ok)
+            throw new Error("something went wrong with fetching dogs");
+          const data = await res.json();
+          if (data.length === 0) throw new Error("dog not found");
+          setDog(data);
+          setError("");
+        } catch (err) {
+          console.log(err.message);
+          setError(err.message);
+        } finally {
+          Setloding(false);
+        }
       }
-    }
-    fetchDogs();
-  }, []);
+      fetchDogs();
+    },
+    [query]
+  );
 
   function handelShow() {
     setShow((show) => !show);
   }
   return (
     <>
-      <Search />
+      <Search setQuery={setQuery} />
       {loading && <Loader />}
       {!loading && !error && (
         <FetchUi setshow={handelShow} show={show} dogInfo={dog} />
@@ -60,13 +65,14 @@ export default function App() {
     </>
   );
 }
-function Search() {
+function Search({ setQuery }) {
   return (
     <div className="flex flex-col items-center bg-darkBrown ">
       <h1 className="font-bold text-xl mt-4 text-beige">
         Fetch the Facts: Dog Breed Information at Your Fingertips
       </h1>
       <input
+        onChange={(e) => setQuery(e.target.value)}
         placeholder="Search for Dogs ..."
         className="w-80 h-10  rounded shadow  placeholder-white bg-lightBrown text-center m-3 focus:outline-none focus:border-none focus:-translate-y-px focus:shadow-current transition-all text-beige"
       />
