@@ -66,15 +66,15 @@ function Fetch({ dog }) {
         alt={dog.name}
         className="w-96 h-64 rounded m-2"
       />
-      <div className="ml-4 mt-5 font-mono">
+      <div className="ml-4 mt-5 font-mono h-64  w-60">
         <h1>Name: {dog.name}</h1>
-        <h2>Height-Male: {dog.max_height_male}</h2>
-        <h2>Weight-Male: {dog.max_weight_male}</h2>
+        <h2>Height Male: {dog.max_height_male} inches</h2>
+        <h2>Weight Male: {dog.max_weight_male} lbs</h2>
       </div>
-      <div className="ml-4 font-mono mt-5">
-        <h2>Weight-Female: {dog.max_weight_female}</h2>
-        <h2>Height-Female: {dog.max_height_female}</h2>
-        <h2>life-expectancy: {dog.max_life_expectancy}</h2>
+      <div className="ml-4 font-mono mt-5 w-60 h-64 ">
+        <h2>Weight Female: {dog.max_weight_female} lbs</h2>
+        <h2>Height Female: {dog.max_height_female} inches</h2>
+        <h2>life expectancy: {dog.max_life_expectancy} yrs</h2>
       </div>
     </li>
   );
