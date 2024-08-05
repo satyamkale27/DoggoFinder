@@ -16,20 +16,31 @@ export default function App() {
   const [show, setShow] = useState(true);
   const [dog, setDog] = useState([]);
   const [error, setError] = useState("");
+  const [loading, Setloding] = useState(false);
   const query = "golden retriever";
   useEffect(function () {
     async function fetchDogs() {
       try {
+        Setloding(true);
+        setError("");
         const res = await fetch(
-          `https://api.api-ninjas.com/v1/dogs?name=${query}`
+          `https://api.api-ninjas.com/v1/dogs?name=${query}`,
+          {
+            headers: {
+              "X-Api-Key": "",
+            },
+          }
         );
         if (!res.ok) throw new Error("something went wrong with fetching dogs");
         const data = await res.json();
         if (data.length === 0) throw new Error("dog not found");
         setDog(data);
+        setError("");
       } catch (err) {
         console.log(err.message);
         setError(err.message);
+      } finally {
+        Setloding(false);
       }
     }
     fetchDogs();
@@ -42,7 +53,11 @@ export default function App() {
     <>
       <Search />
 
-      <FetchUi setshow={handelShow} show={show} dogInfo={dog} />
+      {loading ? (
+        <Loader />
+      ) : (
+        <FetchUi setshow={handelShow} show={show} dogInfo={dog} />
+      )}
       {error && <Displayerror error={error} />}
     </>
   );
@@ -105,10 +120,17 @@ function Fetch({ dog }) {
 
 function Displayerror({ error }) {
   return (
-    <div className="flex justify-center tex h-1/3 items-center">
+    <div className="flex justify-center  h-1/3 items-center">
       <h1 className="font-bold text-xl text-red-500 font-serif">
         <span>⛔️</span> {error}
       </h1>
+    </div>
+  );
+}
+function Loader() {
+  return (
+    <div className="flex justify-center  h-1/3 items-center">
+      <p className="font-bold text-xl text-red-500 font-serif">Loading...</p>
     </div>
   );
 }
