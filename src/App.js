@@ -52,10 +52,8 @@ export default function App() {
   return (
     <>
       <Search />
-
-      {loading ? (
-        <Loader />
-      ) : (
+      {loading && <Loader />}
+      {!loading && !error && (
         <FetchUi setshow={handelShow} show={show} dogInfo={dog} />
       )}
       {error && <Displayerror error={error} />}
