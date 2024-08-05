@@ -14,13 +14,14 @@ const dogData = [
 
 export default function App() {
   const [show, setShow] = useState(true);
+  const [dog, setDog] = useState(dogData);
   function handelShow() {
     setShow((show) => !show);
   }
   return (
     <>
       <Search />
-      <FetchUi setshow={handelShow} show={show} />
+      <FetchUi setshow={handelShow} show={show} dogInfo={dog} />
     </>
   );
 }
@@ -37,7 +38,7 @@ function Search() {
     </div>
   );
 }
-function FetchUi({ setshow, show }) {
+function FetchUi({ setshow, show, dogInfo }) {
   return (
     <>
       <button
@@ -49,7 +50,7 @@ function FetchUi({ setshow, show }) {
 
       {show && (
         <ul className="list-none bg-lightblue flex flex-col items-center">
-          {dogData.map((dog) => (
+          {dogInfo.map((dog) => (
             <Fetch dog={dog} key={dog.name} />
           ))}
         </ul>
