@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const dogData = [
   {
     name: "Golden Retriever",
@@ -11,10 +13,14 @@ const dogData = [
 ];
 
 export default function App() {
+  const [show, setShow] = useState(true);
+  function handelShow() {
+    setShow((show) => !show);
+  }
   return (
     <>
       <Search />
-      <FetchUi />
+      <FetchUi setshow={handelShow} show={show} />
     </>
   );
 }
@@ -31,18 +37,23 @@ function Search() {
     </div>
   );
 }
-function FetchUi() {
+function FetchUi({ setshow, show }) {
   return (
     <>
-      <button className="bg-blue-400 rounded-full w-6 absolute right-0 mt-2 mr-2">
-        -
+      <button
+        className="bg-blue-400 rounded-full w-6 absolute right-0 mt-2 mr-2"
+        onClick={setshow}
+      >
+        {show ? "-" : "+"}
       </button>
 
-      <ul className="list-none bg-lightblue flex flex-col items-center">
-        {dogData.map((dog) => (
-          <Fetch dog={dog} key={dog.name} />
-        ))}
-      </ul>
+      {show && (
+        <ul className="list-none bg-lightblue flex flex-col items-center">
+          {dogData.map((dog) => (
+            <Fetch dog={dog} key={dog.name} />
+          ))}
+        </ul>
+      )}
     </>
   );
 }
